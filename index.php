@@ -73,6 +73,7 @@
       ?>
         <div class="row justify-content-center">
             <form action="process.php" method = "POST">
+              <input type="hidden" name = "id" value = "<?php echo $id; ?>" > <!-- Keeping this field hidden from the user -->
               <div class="form-group">
                 <label>Name</label>
                 <br>
