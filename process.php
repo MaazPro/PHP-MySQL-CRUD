@@ -4,6 +4,8 @@ session_start();
 
 $mysqli = new mysqli('localhost','root','','crud') or die (mysqli_error($mysqli)); 
 
+//Setting the default value to 0
+$id = 0;
 
 // Incase the edit button is not pressed these values will be initialized 
 $name = "";
@@ -52,6 +54,20 @@ if(isset($_POST['save'])){
             $name = $row['name'];
             $location = $row['location'];
         }
+    }
+
+    if(isset($_POST['update'])){
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $location = $_POST['location'];
+
+        $mysqli->query("UPDATE data SET name = '$name' , location = '$location' WHERE id = '$id' ") or die($mysqli->error());
+
+        $_SESSION['message'] = "Record updated!";
+        $_SESSION['msg_type'] = "warning";
+        
+        header('location: index.php'); //redirecting to the index page
+
     }
 
 ?>
