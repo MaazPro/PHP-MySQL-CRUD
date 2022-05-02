@@ -16,6 +16,21 @@
   </head>
   <body>
     <?php require_once 'process.php'; ?>
+    <!-- Codes Below -->
+    
+    <?php 
+      if (isset($_SESSION['message'])): ?>
+      
+      <div class = "alert alert-<?=$_SESSION['msg_type']?>">
+
+        <?php 
+          echo $_SESSION['message'];
+          unset($_SESSION['message']);
+        ?>
+
+      </div>
+      <?php endif ?>
+
      <div class="container">
         <!-- Establishing connection and fetching data from sql -->
         <!-- Printing data from the mysql table -->
