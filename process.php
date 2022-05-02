@@ -4,6 +4,12 @@ session_start();
 
 $mysqli = new mysqli('localhost','root','','crud') or die (mysqli_error($mysqli)); 
 
+
+// Incase the edit button is not pressed these values will be initialized 
+$name = "";
+$location = "";
+$update = false;
+
 if(isset($_POST['save'])){
     
     $name = $_POST['name'];
@@ -24,7 +30,9 @@ if(isset($_POST['save'])){
         exit;
     }
     
-}
+    }
+
+
     if(isset($_GET['delete'])){
         $id = $_GET['delete'];
         $mysqli-> query("DELETE FROM data WHERE id=$id") or die ($mysqli-> error());
@@ -32,4 +40,18 @@ if(isset($_POST['save'])){
         $_SESSION['msg_type'] = "danger";
         header("location: index.php");
     }
+
+    if(isset($_GET['edit'])){
+        $update = true; // this value will be true if the edit button is clicked
+        $id = $_GET['edit'];
+        $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die ($mysqli->error());
+        
+        if(count(array($result)) == 1){
+            
+            $row = $result->fetch_array();
+            $name = $row['name'];
+            $location = $row['location'];
+        }
+    }
+
 ?>

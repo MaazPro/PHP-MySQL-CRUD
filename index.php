@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>CRUD</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -57,7 +57,7 @@
             <td>
               <a href="index.php?edit=<?php echo $row['id']; ?>" class = "btn btn-info">Edit</a>
               <a href="process.php?delete=<?php echo $row['id']; ?>" class = "btn btn-danger">Delete</a>
-              <a href="" class = ""></a>
+              
             </td>
           </tr>
           <?php endwhile; ?>
@@ -76,18 +76,24 @@
               <div class="form-group">
                 <label>Name</label>
                 <br>
-                <input type="text" name="name" class="form-group" value ="Enter Name">
+                <input type="text" name="name" value = "<?php echo $name; ?>" class="form-group" placeholder ="Enter Name">
+                
                 </div>
 
                 <div class="form-group">
                 <label>Location</label>
                 <br>
-                <input type="text" name="location" class="form-group" value="Enter Location"> 
+                <input type="text" name="location" value = "<?php echo $location; ?>" class="form-group" placeholder ="Enter Location">
+                 
                 </div>
                 
                 <div class="form-group">
-                <button type="submit" class = "btn btn-primary" name = "save">Save</button>
-                <!-- b4-button-default  btn btn-primary-->
+                  <?php if ($update == true): 
+                    ?>
+                    <button type="submit" class = "btn btn-info" name = "update">Update</button>
+                    <?php else: ?>   
+                    <button type="submit" class = "btn btn-primary" name = "save">Save</button>
+                  <?php endif; ?>    
                 </div>
               </form>
             </div>
