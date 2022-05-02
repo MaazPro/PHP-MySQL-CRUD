@@ -16,61 +16,66 @@
   </head>
   <body>
     <?php require_once 'process.php'; ?>
+     <div class="container">
+        <!-- Establishing connection and fetching data from sql -->
+        <!-- Printing data from the mysql table -->
+        <?php 
+        $mysqli = new $mysqli('localhost','root','','crud') or die ($mysqli->error);
+        $result = $mysqli->query("SELECT * FROM data") or die ($mysqli->error);
+        // pre_r($result->fetch_assoc());
+        // pre_r($result->fetch_assoc());
+        ?>
 
-    <!-- Establishing connection and fetching data from sql -->
-    <!-- Printing data from the mysql table -->
-    <?php 
-    $mysqli = new $mysqli('localhost','root','','crud') or die ($mysqli->error);
-    $result = $mysqli->query("SELECT * FROM data") or die ($mysqli->error);
-    // pre_r($result->fetch_assoc());
-    // pre_r($result->fetch_assoc());
-    ?>
+        <div class="row justify-content-center">
+        <table class = "table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+              <th colspan = "2">Action</th>
+            </tr>
+          </thead>
+      <?php while ($row = $result-> fetch_assoc()):   ?>
+          <tr>
+            <td><?php echo $row['name']; ?></td>
+            <td><?php echo $row['location']; ?></td>
+            <td>
+              <a href="index.php?edit=<?php echo $row['id']; ?>" class = "btn btn-info">Edit</a>
+              <a href="process.php?delete=<?php echo $row['id']; ?>" class = "btn btn-danger">Delete</a>
+              <a href="" class = ""></a>
+            </td>
+          </tr>
+          <?php endwhile; ?>
+      </table>
+      </div>
+      
+      <?php 
+          function pre_r($array){
+            echo '<pre>';
+            print_r($array);
+            echo '</pre>';
+          }
+      ?>
+        <div class="row justify-content-center">
+            <form action="process.php" method = "POST">
+              <div class="form-group">
+                <label>Name</label>
+                <br>
+                <input type="text" name="name" class="form-group" value ="Enter Name">
+                </div>
 
-    <div class="row justify-content-center">
-    <table class = "table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th colspan = "2">Action</th>
-        </tr>
-      </thead>
-   <?php while ($row = $result-> fetch_assoc()):   ?>
-      <tr>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['location']; ?></td>
-        <td></td>
-      </tr>
-      <?php endwhile; ?>
-   </table>
-  </div>
-  
-  <?php 
-      function pre_r($array){
-        echo '<pre>';
-        print_r($array);
-        echo '</pre>';
-      }
-  ?>
-    <div class="row justify-content-center">
-        <form action="process.php" method = "POST">
-          <div class="form-group">
-            <label>Name</label>
-            <br>
-            <input type="text" name="name" class="form-group" value ="Enter Name">
+                <div class="form-group">
+                <label>Location</label>
+                <br>
+                <input type="text" name="location" class="form-group" value="Enter Location"> 
+                </div>
+                
+                <div class="form-group">
+                <button type="submit" class = "btn btn-primary" name = "save">Save</button>
+                <!-- b4-button-default  btn btn-primary-->
+                </div>
+              </form>
             </div>
-
-            <div class="form-group">
-            <label>Location</label>
-            <br>
-            <input type="text" name="location" class="form-group" value="Enter Location"> 
-            </div>
-            
-            <div class="form-group">
-            <button type="submit" class = "btn btn-primary" name = "save">Save</button>
-            <!-- b4-button-default  btn btn-primary-->
-            </div>
-          </form>
-        </div>
+        </div> 
   </body>
 </html>
